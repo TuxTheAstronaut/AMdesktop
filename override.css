@@ -1,0 +1,72 @@
+/* CSS overides to apple music webpage */
+
+a.svelte-1o7dz8w,
+.navigation__native-cta {
+    display: none !important;
+}
+
+.logo.svelte-1o7dz8w,
+.player-bar.svelte-nrv2cz {
+    -webkit-app-region: drag;
+}
+.player-bar.svelte-nrv2cz::before,
+.lyrics__container.svelte-15ty657::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 100px;
+    width: calc(100% - 100px);
+    height: 54px;
+    -webkit-app-region: drag;
+}
+
+.close-button.svelte-15ty657 {
+    -webkit-app-region: no-drag;
+    margin-left: 100px !important;
+}
+.right-content.svelte-nrv2cz,
+apple-music-playback-controls,
+amp-chrome-volume,
+amp-lcd {
+    -webkit-app-region: no-drag !important;
+}
+
+/* Window Controls */
+
+.window-controls {
+    content: "";
+    position: fixed;
+    top: 0;
+    margin: 20px;
+    height: 12px;
+    width: 64px;
+    z-index: 99999;
+}
+.close,
+.minimize,
+.maximize {
+    width: 12px;
+    height: 100%;
+    -webkit-app-region: no-drag;
+}
+.minimize,
+.maximize {
+    margin-left: 5px !important;
+}
+
+.red,
+.yellow,
+.green {
+    border-radius: 50%;
+    width: 12px;
+    height: 100%;
+}
+.red {
+    background-color: #ff5c5c;
+}
+.yellow {
+    background-color: #ffbd44;
+}
+.green {
+    background-color: #4caf50;
+}

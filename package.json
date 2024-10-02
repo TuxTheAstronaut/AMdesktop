@@ -1,0 +1,43 @@
+{
+  "name": "amdesktop",
+  "version": "1.0.0",
+  "description": "A wrapper for Apple Music web player",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "TuxTheAstronaut",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "github:castlabs/electron-releases#v32.1.2+wvcus",
+    "electron-builder": "^25.0.5"
+  },
+  "build": {
+    "appId": "TuxTheAstronaut.AMdesktop",
+    "productName": "AMdesktop",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "main.js",
+      "preload.js",
+      "override.css",
+      "window.css",
+      "amdesktop.png"
+    ],
+    "electronDownload": {
+      "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
+    },
+    "linux": {
+      "icon": "amdesktop.png"
+    }
+  }
+}
