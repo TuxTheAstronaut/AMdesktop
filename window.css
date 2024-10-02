@@ -36,7 +36,7 @@ iframe,
 .content-wrapper.svelte-mjbhnt.svelte-mjbhnt,
 .app-container.svelte-1dd2ymc {
     border: 1px solid black;
-    border-radius: 12px; /* MAKE IT 14 */
+    border-radius: 12px;
     box-sizing: border-box !important;
     overflow: hidden !important;
     position: relative;
@@ -50,8 +50,8 @@ iframe,
     left: -1px;
     right: -1px;
     bottom: -1px;
-    border-radius: 12px; /* MAKE IT 14 */
-    border: 2px solid rgba(235, 235, 245, 0.35);
+    border-radius: 12px;
+    border: 2px solid var(--vibrantDivider);
     background-color: transparent;
     pointer-events: none;
     z-index: 99999; /* Ensure the border appears above this */
