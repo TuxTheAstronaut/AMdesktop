@@ -3,9 +3,6 @@
 
 ![Apple Music Desktop](.github/images/AMdesktop.png)
 
-[![GitHub license][license-img]][license-url]
-[![GitHub release][release-img]][release-url]
-
 ### ❔ How it works ❔
 AM desktop is a wrapper built on electron that gives the [Apple Music](https://music.apple.com/) web player
 a face lift to look like a desktop app
@@ -36,7 +33,7 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://github.com/electron/electron-quick-start
+git clone https://github.com/TuxTheAstronaut/AMdesktop.git
 # Go into the repository
 cd AMdesktop
 # Install dependencies
