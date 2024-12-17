@@ -1,13 +1,15 @@
 // Modules to control application life and create native browser window
-const { app, components, BrowserWindow, ipcMain } = require("electron");
+const { app, components, BrowserWindow, Tray, ipcMain } = require("electron");
 const gotTheLock = app.requestSingleInstanceLock();
 const path = require("node:path");
 const fs = require("node:fs");
+const { Menu } = require("electron/main");
 
 if (!gotTheLock) {
   app.quit();
 }
 
+var systemTray = true;
 var windowTransparent = true;
 
 app.commandLine.appendSwitch(
@@ -23,6 +25,7 @@ function createWindow() {
     height: 800,
     minWidth: 1000,
     minHeight: 800,
+    icon: path.join(__dirname, "amdesktop.png"),
     transparent: windowTransparent,
     frame: false,
     show: false,
@@ -69,7 +72,12 @@ function createWindow() {
   });
 
   ipcMain.on("close-window", () => {
-    mainWindow.destroy();
+    if (systemTray) {
+      mainWindow.hide();
+    } else {
+      mainWindow.destroy();
+      app.quit();
+    }
   });
 
   ipcMain.on("minimize-window", () => {
@@ -87,6 +95,73 @@ function createWindow() {
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
+
+  mainWindow.on("close", (event) => {
+    if (systemTray && !app.isQuiting) {
+      event.preventDefault();
+      mainWindow.hide(); // Hide window to tray
+    }
+  });
+
+  if (systemTray) {
+    var trayIcon = path.join(__dirname, "tray-icon.png");
+    var appTray = new Tray(trayIcon);
+
+    var contextMenu = Menu.buildFromTemplate([
+      {
+        label: "Apple Music Desktop",
+        enabled: false,
+      },
+      { type: "separator" },
+      {
+        label: "Open",
+        click: function () {
+          mainWindow.show();
+        },
+      },
+      { type: "separator" },
+      {
+        label: "Play/Pause",
+        click: function () {
+          mainWindow.webContents.executeJavaScript(
+            "document.querySelector('amp-playback-controls-play').click()",
+          );
+        },
+      },
+      {
+        label: "Previous",
+        click: function () {
+          // Ugly code to get the JS path of the Previous button since amp-playback-controls-item-skip.previous does not work
+          mainWindow.webContents.executeJavaScript(
+            'document.querySelector("body > div.body-container > div > div.player-bar.player-bar__floating-player.svelte-nrv2cz > div > amp-chrome-player").shadowRoot.querySelector("div > div.chrome-player__playback-controls > apple-music-playback-controls").shadowRoot.querySelector("div > div.music-controls__main > amp-playback-controls-item-skip.previous").click()',
+          );
+        },
+      },
+      {
+        label: "Next",
+        click: function () {
+          mainWindow.webContents.executeJavaScript(
+            "document.querySelector('amp-playback-controls-item-skip.next').click()",
+          );
+        },
+      },
+      { type: "separator" },
+      {
+        label: "Quit",
+        click: function () {
+          mainWindow.destroy();
+          app.quit();
+        },
+      },
+    ]);
+
+    appTray.on("click", () => {
+      mainWindow.show();
+    });
+
+    appTray.setToolTip("Apple Music Desktop");
+    appTray.setContextMenu(contextMenu);
+  }
 }
 
 // This method will be called when Electron has finished
@@ -98,15 +173,17 @@ app.whenReady().then(async () => {
 
   //check for command line or env var switch to disable the transparent window
   if (
-    process.env.NO_TRANSPARENT == "1" ||
-    app.commandLine.getSwitchValue("no-transparent") == "1"
+    process.env.NO_TRANSPARENT == "true" ||
+    app.commandLine.hasSwitch("no-transparent")
   ) {
     windowTransparent = false;
   }
 
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
-});
+  if (process.env.NO_TRAY == "true" || app.commandLine.hasSwitch("no-tray")) {
+    systemTray = false;
+  }
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-// IPC handlers for window actions
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});

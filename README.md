@@ -4,19 +4,31 @@
 ![Apple Music Desktop](.github/images/AMdesktop.png)
 
 ### ❔ How it works ❔
-AM desktop is a wrapper built on electron that gives the [Apple Music](https://music.apple.com/) web player
-a face lift to look like a desktop app
-#### Window Transparency
-By default the window is transparent allowing for rounded corners on the window.
-Howver this may cause issues on certain desktops or if running on xwayland.
+AM Desktop is an Electron-based wrapper that gives the [Apple Music](https://music.apple.com/) web player a facelift,
+making it resemble a desktop app and integrating seamlessly into your desktop.
+#### System Tray
+By default the window closes to the system tray allowing you to keep playing your music in the background.
+However not all desktops may support this functionality.
 
-You can disable this by passing a enviorment variable or lanch argument.
+You can disable the tray by setting a enviorment variable or lanch argument:
 ```bash
 # Enviorment variable
-NO_TRANSPARENT=1
+NO_TRAY=true
 
 # Launch argument
---no-transparent=1
+--no-tray
+```
+#### Window Transparency
+By default the window is transparent allowing for rounded corners on the window.
+However this may cause issues on certain desktops or if running on xwayland.
+
+You can disable this by setting a enviorment variable or lanch argument:
+```bash
+# Enviorment variable
+NO_TRANSPARENT=true
+
+# Launch argument
+--no-transparent
 ```
 #### Wayland
 If the app launches under xwayland and you want to use wayland you can set the following enviorment variable:
@@ -25,7 +37,8 @@ ELECTRON_OZONE_PLATFORM_HINT=wayland
 ```
 
 ### ⚠️ Known Issues ⚠️
-passkey sign-in currently does not work.
+* passkey sign-in currently does not work.
+* some dropdown context menus do not work.
 
 ## Developing
 
