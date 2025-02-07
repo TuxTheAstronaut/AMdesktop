@@ -33,7 +33,7 @@ iframe,
 .upsell-personal.svelte-7wle6h.svelte-7wle6h {
     display: none;
 }
-.content-wrapper.svelte-mjbhnt.svelte-mjbhnt,
+.modal.svelte-1dznc6t.svelte-1dznc6t,
 .app-container.svelte-1dd2ymc {
     border: 1px solid black;
     border-radius: 12px;
@@ -42,7 +42,7 @@ iframe,
     position: relative;
     z-index: 1;
 }
-.content-wrapper.svelte-mjbhnt.svelte-mjbhnt::before,
+.modal.svelte-1dznc6t.svelte-1dznc6t::before,
 .app-container.svelte-1dd2ymc::before {
     content: "";
     position: absolute;
