@@ -14,7 +14,7 @@ var windowTransparent = true;
 
 app.commandLine.appendSwitch(
   "enable-features",
-  "VaapiVideoDecoder, OverlayScrollbar, UseOzonePlatform",
+  "VaapiVideoDecoder, OverlayScrollbar, CanvasOopRasterization",
 );
 app.commandLine.appendSwitch("enable-zero-copy");
 

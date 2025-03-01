@@ -11,6 +11,7 @@ body {
     border-radius: 12px !important;
 }
 iframe,
+.container.takeover,
 .backdrop.svelte-mjbhnt.svelte-mjbhnt,
 .content-wrapper.svelte-mjbhnt.svelte-mjbhnt {
     border-radius: 12px !important;

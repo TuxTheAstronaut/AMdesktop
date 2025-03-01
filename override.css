@@ -9,6 +9,7 @@ a.svelte-1o7dz8w,
 .player-bar.svelte-nrv2cz {
     -webkit-app-region: drag;
 }
+.container.takeover::before,
 .player-bar.svelte-nrv2cz::before,
 .lyrics__container.svelte-15ty657::before {
     content: "";
@@ -20,6 +21,7 @@ a.svelte-1o7dz8w,
     -webkit-app-region: drag;
 }
 
+.playback-exit,
 .close-button.svelte-15ty657 {
     -webkit-app-region: no-drag;
     margin-left: 100px !important;
