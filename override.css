@@ -1,17 +1,21 @@
 /* CSS overides to apple music webpage */
 
+/* Hide Logo and open in app button */
 a.svelte-1o7dz8w,
 .navigation__native-cta {
     display: none !important;
 }
 
+/* Header Bar */
 .logo.svelte-1o7dz8w,
 .player-bar.svelte-nrv2cz {
     -webkit-app-region: drag;
 }
+
+/* Invisble drag headerbars */
 .container.takeover::before,
 .player-bar.svelte-nrv2cz::before,
-.lyrics__container.svelte-15ty657::before {
+.lyrics__container.svelte-q49si3::before {
     content: "";
     position: fixed;
     top: 0;
@@ -21,8 +25,10 @@ a.svelte-1o7dz8w,
     -webkit-app-region: drag;
 }
 
+/* Drag Exclusions */
+
 .playback-exit,
-.close-button.svelte-15ty657 {
+.close-button.svelte-q49si3 {
     -webkit-app-region: no-drag;
     margin-left: 100px !important;
 }
@@ -71,4 +77,28 @@ amp-lcd {
 }
 .green {
     background-color: #4caf50;
+}
+
+/* Window Border */
+
+.window-outline {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999999;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+.window-outline::before {
+    content: "";
+    position: fixed;
+    box-sizing: border-box;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    border: 1px solid var(--vibrantDivider);
+    background-color: transparent;
+    pointer-events: none;
+    z-index: 999999;
 }

@@ -11,6 +11,7 @@ if (!gotTheLock) {
 
 var systemTray = true;
 var windowTransparent = true;
+var windowOutline = true;
 
 app.commandLine.appendSwitch(
   "enable-features",
@@ -54,7 +55,7 @@ function createWindow() {
 
   //insertCustomCSS();
   mainWindow.webContents.on("did-finish-load", () => {
-    const html = `
+    const windowControls = `
       <div class="window-controls">
         <button class="close" id="close-btn"><div class="red"></div></button>
         <button class="minimize" id="minimize-btn"><div class="yellow"></div></button>
@@ -63,11 +64,22 @@ function createWindow() {
     `;
 
     mainWindow.webContents.executeJavaScript(`
-      document.body.insertAdjacentHTML('beforeend', \`${html}\`);
+      document.body.insertAdjacentHTML('beforeend', \`${windowControls}\`);
       document.getElementById('close-btn').addEventListener('click', () => ipc.send('close-window'));
       document.getElementById('minimize-btn').addEventListener('click', () => ipc.send('minimize-window'));
       document.getElementById('maximize-btn').addEventListener('click', () => ipc.send('maximize-window'));
       `);
+
+    if (windowOutline) {
+      const outline = `
+        <div class="window-outline"></div>
+      `;
+
+      mainWindow.webContents.executeJavaScript(`
+        document.body.insertAdjacentHTML('beforeend', \`${outline}\`);
+      `);
+    }
+
     insertCustomCSS();
   });
 
@@ -173,13 +185,20 @@ app.whenReady().then(async () => {
 
   //check for command line or env var switch to disable the transparent window
   if (
-    process.env.NO_TRANSPARENT == "true" ||
+    process.env.NO_TRANSPARENT == "1" ||
     app.commandLine.hasSwitch("no-transparent")
   ) {
     windowTransparent = false;
   }
 
-  if (process.env.NO_TRAY == "true" || app.commandLine.hasSwitch("no-tray")) {
+  if (
+    process.env.NO_OUTLINE == "1" ||
+    app.commandLine.hasSwitch("no-outline")
+  ) {
+    windowOutline = false;
+  }
+
+  if (process.env.NO_TRAY == "1" || app.commandLine.hasSwitch("no-tray")) {
     systemTray = false;
   }
 
