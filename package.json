@@ -1,6 +1,6 @@
 {
   "name": "amdesktop",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A wrapper for Apple Music web player",
   "main": "main.js",
   "scripts": {
