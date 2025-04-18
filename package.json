@@ -18,7 +18,7 @@
   "author": "TuxTheAstronaut",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "github:castlabs/electron-releases#v34.3.0+wvcus",
+    "electron": "github:castlabs/electron-releases#v36.0.0-beta.6+wvcus",
     "electron-builder": "^25.0.5"
   },
   "build": {

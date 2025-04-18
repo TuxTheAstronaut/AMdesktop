@@ -15,7 +15,7 @@ var windowOutline = true;
 
 app.commandLine.appendSwitch(
   "enable-features",
-  "VaapiVideoDecoder, OverlayScrollbar, CanvasOopRasterization",
+  "VaapiVideoDecoder, FluentOverlayScrollbar, CanvasOopRasterization",
 );
 app.commandLine.appendSwitch("enable-zero-copy");
 
