@@ -143,10 +143,15 @@ function createWindow() {
       {
         label: "Previous",
         click: function () {
-          // Ugly code to get the JS path of the Previous button since amp-playback-controls-item-skip.previous does not work
-          mainWindow.webContents.executeJavaScript(
-            'document.querySelector("body > div.body-container > div > div.player-bar.player-bar__floating-player.svelte-1okapwz > div > amp-chrome-player").shadowRoot.querySelector("div > div.chrome-player__playback-controls > apple-music-playback-controls").shadowRoot.querySelector("div > div.music-controls__main > amp-playback-controls-item-skip.previous").click()',
-          );
+          // More work has to be done to find amp-playback-controls-item-skip.previous
+          mainWindow.webContents.executeJavaScript(`
+            (() => {
+              const chromePlayer = document.querySelector('amp-chrome-player')?.shadowRoot;
+              const playbackControls = chromePlayer?.querySelector('apple-music-playback-controls')?.shadowRoot;
+              const previousButton = playbackControls?.querySelector('amp-playback-controls-item-skip.previous');
+              previousButton?.click();
+            })()
+          `);
         },
       },
       {
