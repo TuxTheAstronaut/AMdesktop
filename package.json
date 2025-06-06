@@ -1,6 +1,6 @@
 {
   "name": "amdesktop",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "A wrapper for Apple Music web player",
   "main": "main.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "author": "TuxTheAstronaut",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "github:castlabs/electron-releases#v36.0.0-beta.9+wvcus",
+    "electron": "github:castlabs/electron-releases#v36.3.2+wvcus",
     "electron-builder": "^25.0.5"
   },
   "build": {
@@ -29,8 +29,6 @@
       "package.json",
       "main.js",
       "preload.js",
-      "override.css",
-      "window.css",
       "amdesktop.png",
       "tray-icon.png"
     ],

@@ -4,6 +4,7 @@ const gotTheLock = app.requestSingleInstanceLock();
 const path = require("node:path");
 const fs = require("node:fs");
 const { Menu } = require("electron/main");
+const https = require("https");
 
 if (!gotTheLock) {
   app.quit();
@@ -39,21 +40,20 @@ function createWindow() {
   mainWindow.loadURL("https://music.apple.com/");
 
   // Inject custom CSS after the page has finished loading
-  const cssOverrides = path.join(__dirname, "override.css");
-  const cssWindow = path.join(__dirname, "window.css");
   const insertCustomCSS = () => {
-    fs.readFile(cssOverrides, "utf8", (err, data) => {
-      mainWindow.webContents.insertCSS(data, { cssOrigin: "user" });
-    });
+    fetchCSS(
+      mainWindow,
+      "https://raw.githubusercontent.com/TuxTheAstronaut/AMdesktop/refs/heads/main/css/override.css",
+    );
 
     if (windowTransparent) {
-      fs.readFile(cssWindow, "utf8", (err, data) => {
-        mainWindow.webContents.insertCSS(data, { cssOrigin: "user" });
-      });
+      fetchCSS(
+        mainWindow,
+        "https://raw.githubusercontent.com/TuxTheAstronaut/AMdesktop/refs/heads/main/css/window.css",
+      );
     }
   };
 
-  //insertCustomCSS();
   mainWindow.webContents.on("did-finish-load", () => {
     const windowControls = `
       <div class="window-controls">
@@ -181,9 +181,33 @@ function createWindow() {
   }
 }
 
+// This function fetches CSS from a URL and injects it into a window's webContents.
+function fetchCSS(win, cssUrl) {
+  https
+    .get(cssUrl, (res) => {
+      let data = "";
+
+      // Check for successful response
+      if (res.statusCode !== 200) {
+        console.error(`Failed to fetch CSS. Status code: ${res.statusCode}`);
+        return;
+      }
+
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
+        win.webContents
+          .insertCSS(data)
+          .then(() => console.log("CSS injected successfully."))
+          .catch((err) => console.error("Failed to inject CSS:", err));
+      });
+    })
+    .on("error", (err) => {
+      console.error("Error fetching CSS:", err);
+    });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
   await components.whenReady();
   console.log("components ready:", components.status());
