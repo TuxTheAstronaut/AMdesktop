@@ -196,7 +196,7 @@ function fetchCSS(win, cssUrl) {
       res.on("data", (chunk) => (data += chunk));
       res.on("end", () => {
         win.webContents
-          .insertCSS(data)
+          .insertCSS(data, { cssOrigin: "user" })
           .then(() => console.log("CSS injected successfully."))
           .catch((err) => console.error("Failed to inject CSS:", err));
       });
