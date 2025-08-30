@@ -23,7 +23,7 @@ iframe,
     overflow: hidden !important;
 }
 .side-panel.svelte-15gudma.svelte-15gudma {
-    border-bottom-right-radius: 14px !important;
+    border-bottom-right-radius: 15px !important;
 }
 .side-panel.svelte-15gudma.svelte-15gudma::-webkit-scrollbar {
     display: none;
