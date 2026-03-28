@@ -3,7 +3,6 @@
 /* Hide Logo and open in app button */
 .svelte-xxge2c,
 a.svelte-xxge2c,
-a.svelte-xxge2c:before,
 .navigation__native-cta {
     display: none !important;
 }
